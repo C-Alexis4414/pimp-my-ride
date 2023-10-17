@@ -4,7 +4,7 @@ class Trip {
         this.start = start;
         this.duration = duration;
         this.price = price;
-        this.end = +start + +duration;
+        this.end = parseInt(start) + parseInt(duration);
     }
     isCompatible(trip) {
         if (this.end <= trip.start) {
@@ -45,6 +45,45 @@ function parseTrips(trips){
 let tripList = parseTrips(trips);
 console.log(tripList);
 console.log(tripList[0].isCompatible(tripList[2]));
+
+function findCompatibilities(voyages) {
+        let possibilities = [];
+        for (let i=0; i < voyages.length; i++) {
+            for (let j=0; j < voyages.length; j++) {
+                if (i===j) {
+                    possibilities.push(voyages[i]);
+                } else if (voyages[i].isCompatible(voyages[j])) {
+                    possibilities.push([voyages[i], voyages[j]]);
+                } 
+            }
+        } return possibilities;
+    }
+
+console.log(findCompatibilities(tripList));
+let finalChoice = findCompatibilities(tripList)
+
+function getTripsPrice(voyages){
+        let prixTotal = 0 
+        for (let i = 0 ; i < voyages.length ; i++)  {
+            prixTotal += parseInt(voyages[i].price)
+        }
+        return prixTotal
+    }
+    console.log(getTripsPrice(tripList))
+
+    function findBestPrice(possibilities) {
+            let bestPrice = 0;
+            for (let i = 0; i < possibilities.length; i++) {
+                if (getTripsPrice(possibilities[i]) > bestPrice ) {
+                    bestPrice = getTripsPrice(possibilities[i])
+                }      
+            }
+            return bestPrice;
+        }
+        
+        let bestPrice = findBestPrice(finalChoice);
+        
+        console.log(bestPrice)
 
 // function checkCompatibility(tripA,tripB){
 //     let arriveeA = tripA[1]+tripA[2]
