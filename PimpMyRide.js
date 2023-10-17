@@ -4,10 +4,17 @@ class Trip {
         this.start = start;
         this.duration = duration;
         this.price = price;
+        this.end = +start + +duration;
     }
+    isCompatible(trip) {
+        if (this.end <= trip.start) {
+            return true;
+        }
+        return false;
+        }
 }
 
-let trip = "Perdita 8 10 8"
+// let trip = "Perdita 8 10 8"
 
 function parseTrip(trip){
     let array = trip.split(" ");
@@ -18,7 +25,7 @@ function parseTrip(trip){
   return new Trip(client, start, duration, price);
 }
 
-console.log(parseTrip(trip));
+// console.log(parseTrip(trip));
 
 let trips= [
 	"Roger 0 5 10",
@@ -34,7 +41,17 @@ function parseTrips(trips){
     }
     return voyages;
 }
-console.log(parseTrips(trips))
+
+let tripList = parseTrips(trips);
+console.log(tripList);
+console.log(tripList[0].isCompatible(tripList[2]));
+
+// function checkCompatibility(tripA,tripB){
+//     let arriveeA = tripA[1]+tripA[2]
+//     if (arriveeA < tripB[1]) {
+//         return true
+//     } else return false
+// }
 
 // let voyages = parseTrips(trips)
 
@@ -46,15 +63,6 @@ console.log(parseTrips(trips))
 //     return prixTotal
 // }
 // console.log(getTripsPrice(voyages))
-
-// function checkCompatibility(tripA,tripB){
-//     let arriveeA = tripA[1]+tripA[2]
-//     if (arriveeA < tripB[1]) {
-//         return true
-//     } else return false
-// }
-
-// console.log(checkCompatibility(voyages[0],voyages[2]))
 
 // function findCompatibilities(voyages) {
 //     let possibilities = [];
